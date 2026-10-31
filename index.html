@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'none'">
+<title>この土地に、どんな街を。</title>
+<meta name="description" content="土地の形を見て、町を直しながら、地震・津波の体験と住民のくらしを考える、スマートフォン向けの学習ゲームです（練習用の想定で、実際の被害の予測ではありません）。">
+<meta name="theme-color" content="#2e6bd9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="この土地に、どんな街を。">
+<meta property="og:description" content="土地の形を見て町を直し、地震・津波とくらしを体験する学習ゲーム。">
+<meta property="og:image" content="https://kissan-cafe.github.io/konotochi/og.png">
+<meta property="og:url" content="https://kissan-cafe.github.io/konotochi/">
+<link rel="canonical" href="https://kissan-cafe.github.io/konotochi/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+<noscript><p style="padding:16px">このアプリを使うには、ブラウザのJavaScriptを有効にしてください。</p></noscript>
+<div id="app">
+  <section id="screen-loading" class="screen" aria-live="polite">
+    <p id="loading-text">土地のデータを確かめています…</p>
+    <div id="loading-error" hidden>
+      <p class="err" id="loading-error-text"></p>
+      <button id="btn-retry-pack" class="btn primary">もう一度読み込む</button>
+    </div>
+  </section>
+
+  <section id="screen-start" class="screen" hidden>
+    <div class="start-inner">
+      <p class="badge synthetic" id="start-badge"></p>
+      <h1>この土地に、<br>どんな街を。</h1>
+      <p class="lead">町を直して、くらしと災害を体験しよう</p>
+      <p class="lead-sub" id="start-region" hidden></p>
+      <div class="start-actions">
+        <button id="btn-continue" class="btn big" hidden>続きから</button>
+        <button id="btn-play" class="btn primary big">町を選んで遊ぶ</button>
+        <button id="btn-lessons" class="btn big">課題に挑戦</button>
+        <button id="btn-tutorial" class="btn big">使い方<span id="tut-badge" class="new-badge">はじめての方へ</span></button>
+      </div>
+      <div class="start-links">
+        <button id="btn-new" class="btn link">まっさらな土地から</button>
+        <label class="btn link file-btn">作品ファイルを開く<input type="file" id="file-import-start" accept="application/json,.json"></label>
+        <button id="btn-about" class="btn link">出典と説明</button>
+        <button id="btn-privacy" class="btn link">プライバシーと利用上の注意</button>
+        <a id="link-feedback" class="btn link" href="#" target="_blank" rel="noopener noreferrer" hidden>感想・不具合を送る</a>
+      </div>
+      <p class="note site-operator" id="site-operator" hidden></p>
+      <p class="note" id="start-note" hidden></p>
+    </div>
+  </section>
+
+  <section id="screen-editor" class="screen" hidden>
+    <header class="topbar">
+      <div class="region">
+        <span class="badge synthetic small" id="ed-badge"></span>
+        <span id="ed-title" class="title"></span>
+      </div>
+      <div class="top-actions">
+        <button id="btn-home" class="icon text" aria-label="町と課題を選ぶ">町</button>
+        <button id="btn-save-status" class="chip" aria-live="polite" title="保存の状態">保存済み</button>
+        <button id="btn-undo" class="icon undo-big" aria-label="戻す">↶<span>戻す</span></button>
+        <button id="btn-redo" class="icon" aria-label="やり直す">↷</button>
+        <button id="btn-settings" class="icon" aria-label="設定と出典">⚙</button>
+      </div>
+    </header>
+    <div class="actionbar" id="actionbar">
+      <div class="planbar" id="planbar"></div>
+      <span class="simbar" id="simbar">
+        <button type="button" id="btn-life" class="btn small" aria-pressed="false">くらし</button>
+        <button type="button" id="btn-disaster" class="btn small dz-btn">災害体験</button>
+      </span>
+      <span class="goal-chip" id="goal-text" aria-live="polite"></span>
+      <button id="btn-guide" class="btn small" aria-label="この地形の図鑑">地形</button><button id="btn-rule" class="btn small" aria-label="ルールと操作">？</button>
+    </div>
+    <div class="simstatus" id="simstatus" hidden aria-live="off"></div>
+    <section class="lessonbar" id="lessonbar" hidden aria-label="課題">
+      <button type="button" id="lesson-toggle" class="lesson-head" aria-expanded="true" aria-controls="lesson-body"><span id="lesson-title"></span><span id="lesson-count" class="lesson-count"></span></button>
+      <div id="lesson-body">
+        <p class="lesson-problem"><strong>問題</strong>　<span id="lesson-problem"></span></p>
+        <ul id="lesson-goals" class="lesson-goals" aria-live="polite"></ul>
+        <div class="lesson-actions">
+          <button type="button" id="btn-hint" class="btn small">ヒント</button>
+          <button type="button" id="btn-zones" class="btn small" aria-pressed="true">区域を色で表示</button>
+          <button type="button" id="btn-lesson-pick" class="btn small">課題を選ぶ</button>
+          <button type="button" id="btn-lesson-off" class="btn small link">課題を閉じる</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="stage" id="stage">
+      <div id="map-wrap" tabindex="0" role="application" aria-label="土地の3D表示。押して予告、離して置く、長押しで壊す。キーボードは1〜9で持ち替え、矢印でマス、Enterで置く、Deleteで壊す、WASDで移動、QとEで回転" aria-describedby="cell-info">
+        <canvas id="map"></canvas>
+      </div>
+      <p id="cell-info" class="cell-info" aria-live="polite"></p>
+      <div class="compass" aria-hidden="true"><span id="compass-needle">北<br>▲</span></div>
+      <canvas id="minimap" class="minimap" role="button" tabindex="0" aria-label="全体の地図。黄色の点が選んでいるマス、白い三角が見ている向き。押すとその場所へ移動"></canvas>
+      <div id="crosshair" class="crosshair" aria-hidden="true" hidden>＋</div>
+      <div class="viewctl" role="group" aria-label="視点の操作">
+        <button id="btn-walk" class="icon text" aria-pressed="false" aria-label="歩くモードと空からの切替">歩く</button>
+        <button id="btn-zoom-in" class="icon" aria-label="近づく（拡大）">＋</button>
+        <button id="btn-zoom-out" class="icon" aria-label="離れる（縮小）">－</button>
+        <button id="btn-view-more" class="icon text" aria-expanded="false" aria-controls="viewmore" aria-label="視点のほかの操作">視点</button>
+      </div>
+      <div class="viewmore" id="viewmore" role="group" aria-label="視点のほかの操作" hidden>
+        <button id="btn-rot-left" class="icon" aria-label="左に回す">⟲</button>
+        <button id="btn-rot-right" class="icon" aria-label="右に回す">⟳</button>
+        <button id="btn-tilt-up" class="icon" aria-label="もっと上から見る">⤒</button>
+        <button id="btn-tilt-down" class="icon" aria-label="もっと横から見る">⤓</button>
+        <button id="btn-view-mode" class="icon text" aria-label="真上と3Dの切替">真上</button>
+        <button id="btn-view-reset" class="icon text" aria-label="初期の視点へ戻す">初期</button>
+        <button id="btn-focus" class="icon text" aria-label="選んだマスへ寄る">寄る</button>
+        <button id="btn-arrows" class="icon" aria-label="マスを動かすボタンを表示" aria-pressed="false">✥</button>
+      </div>
+      <div class="stick" id="stick" aria-label="移動用のスティック" role="application"><div class="stick-knob" id="stick-knob"></div></div>
+      <div class="arrowpad" id="arrowpad" hidden>
+        <button data-move="up" class="icon" aria-label="画面の上のマスへ">↑</button>
+        <button data-move="left" class="icon" aria-label="画面の左のマスへ">←</button>
+        <button id="btn-arrow-place" class="icon text" aria-label="選んだマスに置く">置く</button>
+        <button data-move="right" class="icon" aria-label="画面の右のマスへ">→</button>
+        <button data-move="down" class="icon" aria-label="画面の下のマスへ">↓</button>
+      </div>
+      <div class="aim-actions" id="aim-actions" hidden>
+        <button id="btn-aim-break" class="btn">壊す</button>
+        <button id="btn-aim-place" class="btn primary">置く</button>
+      </div>
+      <div class="legend" id="legend" hidden></div>
+      <div class="zone-legend" id="zone-legend" hidden></div>
+      <a class="map-credit" id="map-credit" hidden target="_blank" rel="noopener"></a>
+      <div class="tutorial" id="tutorial" role="status" aria-live="polite" hidden></div>
+      <div class="undo-bar" id="undo-bar" hidden role="status"><span id="undo-bar-text"></span><button id="btn-undo-bar" class="btn small">↶ 戻す</button></div>
+      <div class="gl-banner" id="gl-banner" role="alert" hidden>
+        <p id="gl-banner-text"></p>
+        <div><button id="btn-gl-retry" class="btn small">3Dを再試行</button> <button id="btn-gl-2d" class="btn small">平面表示にする</button></div>
+      </div>
+    </div>
+
+    <div class="compare" id="compare" hidden>
+      <div class="compare-head">
+        <div class="seg" role="group" aria-label="表示する案">
+          <button id="cmp-a" class="seg-btn">案A</button>
+          <button id="cmp-b" class="seg-btn">案B</button>
+        </div>
+        <span id="cmp-diff"></span>
+        <button id="btn-cmp-close" class="btn">編集に戻る</button>
+      </div>
+      <div id="lab-slot"></div>
+    </div>
+
+    <section class="disaster" id="disaster" hidden aria-label="地震・津波の体験"></section>
+
+    <nav class="hotbar-wrap" id="hotbar-wrap" aria-label="持ち物">
+      <div class="hotbar" id="hotbar" role="radiogroup" aria-label="置く物（ホットバー）"></div>
+      <button id="btn-bag" class="bag" aria-label="持ち物をすべて見る">🎒<span>持ち物</span></button>
+    </nav>
+  </section>
+
+  <dialog id="dlg" aria-labelledby="dlg-title">
+    <form method="dialog" class="dlg-inner">
+      <h2 id="dlg-title"></h2>
+      <div id="dlg-body"></div>
+      <div class="dlg-actions" id="dlg-actions"><button class="btn" value="close">閉じる</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+<script type="module" src="./assets/main.js"></script>
+</body>
+</html>

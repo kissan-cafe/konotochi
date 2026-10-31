@@ -1,0 +1,260 @@
+{
+  "indexVersion": 1,
+  "packs": [
+    {
+      "regionId": "synthetic-practice-slope",
+      "file": "synthetic-practice-slope.json",
+      "title": "練習用の架空地形（坂と谷）",
+      "sourceKind": "synthetic",
+      "summary": "坂と谷のある土地。道で家と公園をつなごう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "4c3f9ee926754eb713b7c2eca0a8fe2bbb5e3eb6e4d94e83a27b3a3ecd927d1a",
+      "zones": [],
+      "reliefM": 34.7
+    },
+    {
+      "regionId": "synthetic-fan",
+      "file": "synthetic-fan.json",
+      "title": "練習用の架空地形（扇状地）",
+      "sourceKind": "synthetic",
+      "summary": "山から平地へ出たところに、扇の形に広がるゆるい坂。扇央・扇端の使い分けを考えよう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "8bcba7aa30627234c24a628a75ed6ab5d04364ea012e7b4612812542fdd2e05c",
+      "zones": [
+        {
+          "id": "fan-mid",
+          "label": "扇央（扇の中ほど）",
+          "cells": 694
+        },
+        {
+          "id": "fan-edge",
+          "label": "扇端（扇のすそ）",
+          "cells": 823
+        },
+        {
+          "id": "mountain",
+          "label": "山地",
+          "cells": 768
+        }
+      ],
+      "reliefM": 84.7
+    },
+    {
+      "regionId": "synthetic-terrace",
+      "file": "synthetic-terrace.json",
+      "title": "練習用の架空地形（台地と低地）",
+      "sourceKind": "synthetic",
+      "summary": "西に平らで高い台地、東に低い土地。間に急な斜面。台地と低地の使い分けを考えよう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "ee07a0639a8306419dc22b2cb119b8dfec74d9c357492f028322b0f0d456997e",
+      "zones": [
+        {
+          "id": "plateau",
+          "label": "台地の上",
+          "cells": 1717
+        },
+        {
+          "id": "lowland",
+          "label": "低地",
+          "cells": 2077
+        }
+      ],
+      "reliefM": 27.2
+    },
+    {
+      "regionId": "synthetic-basin",
+      "file": "synthetic-basin.json",
+      "title": "練習用の架空地形（盆地）",
+      "sourceKind": "synthetic",
+      "summary": "まわりを山に囲まれた平らな土地。山すそと盆地の底の使い分けを考えよう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "468012294af03cd305fd5e8e96262a6961708501d3045c1b7eca65bc0d8ef99f",
+      "zones": [
+        {
+          "id": "basin-floor",
+          "label": "盆地の底",
+          "cells": 812
+        },
+        {
+          "id": "basin-foot",
+          "label": "山すそ",
+          "cells": 907
+        }
+      ],
+      "reliefM": 96.3
+    },
+    {
+      "regionId": "synthetic-coast",
+      "file": "synthetic-coast.json",
+      "title": "練習用の架空地形（海辺の町）",
+      "sourceKind": "synthetic",
+      "summary": "南に海、北に急な斜面と高台のある町。人の暮らしと、地震・津波の想定で避難を考えよう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "2c47a5e7999af6a535cfff541854b3e96e638223aebc29231b224fc01f19cb15",
+      "zones": [
+        {
+          "id": "coast-low",
+          "label": "海沿いの低い土地（標高5m未満）",
+          "cells": 910
+        },
+        {
+          "id": "highland",
+          "label": "高台（標高15m以上）",
+          "cells": 1647
+        }
+      ],
+      "reliefM": 62.7
+    },
+    {
+      "regionId": "synthetic-hills",
+      "file": "synthetic-hills.json",
+      "title": "練習用の架空地形（丘陵）",
+      "sourceKind": "synthetic",
+      "summary": "小さな丘と谷がつづく土地。暮らしに必要な施設と、道のつながりを考えよう。",
+      "datasetVersion": "synthetic-1.0.0",
+      "contentHash": "3331fe93d342e233a5cde45656a5bc0401bea124fb07d67184faa373c955ed3f",
+      "zones": [],
+      "reliefM": 23.7
+    },
+    {
+      "regionId": "derived-1",
+      "file": "derived-1.json",
+      "title": "練習用の地形（本物の谷戸をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "valley",
+      "summary": "丘を細い谷が刻む土地。谷の底に家と道。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "eaaed8b2f7759f60990afd8455b1a9d8ac1f425689f5699e65573e47453786d9",
+      "zones": [],
+      "reliefM": 81.7
+    },
+    {
+      "regionId": "derived-2",
+      "file": "derived-2.json",
+      "title": "練習用の地形（本物の扇状地をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "fan",
+      "summary": "山から出たところに広がる扇状地。上は果樹園、すそに家が集まります。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "f648404f5b45451955f5ad3a079eedeb75697514951bcc1fc544b2bab87cfbca",
+      "zones": [],
+      "reliefM": 176.3
+    },
+    {
+      "regionId": "derived-3",
+      "file": "derived-3.json",
+      "title": "練習用の地形（本物の台地をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "terrace",
+      "summary": "平らな台地の上と、台地を刻む谷。台地のふちは急ながけです。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "b0c8c8b27a66f1b2bd489bc9ad5b0bc498a58b2e4a670eaade17c582d307c7a4",
+      "zones": [],
+      "reliefM": 64.4
+    },
+    {
+      "regionId": "derived-4",
+      "file": "derived-4.json",
+      "title": "練習用の地形（本物の盆地をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "basin",
+      "summary": "盆地の底の平らな土地と、山すそのゆるい坂。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "e9ff07a0a3909e185c86905f61f993e1632c9e3f402ec3be80b221b879ec6758",
+      "zones": [],
+      "reliefM": 106.7
+    },
+    {
+      "regionId": "derived-5",
+      "file": "derived-5.json",
+      "title": "練習用の地形（本物の丘陵をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "hills",
+      "summary": "丘を造成した住宅地。ゆるい丘と谷が入りまじります。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "4ff96bb5ac114acac902b767b65f7e2ecb935a573a0aa5cd288ef847333d892d",
+      "zones": [],
+      "reliefM": 36.8
+    },
+    {
+      "regionId": "derived-6",
+      "file": "derived-6.json",
+      "title": "練習用の地形（本物の海岸段丘をもとに加工）",
+      "sourceKind": "synthetic",
+      "derivedFrom": "coast",
+      "summary": "海から急に高くなる階段のような段丘。海ぞいの細い低地に家が並びます。（本物の地形を向きを変えて加工したもので、場所の名前は出していません）",
+      "datasetVersion": "derived-1.0.0",
+      "contentHash": "fda6ce2dce076f801d95ddd57efbdb2ceee631781dfcfdd68142842d149e1909",
+      "zones": [],
+      "reliefM": 182.3
+    },
+    {
+      "regionId": "real-kamakura",
+      "file": "real-kamakura.json",
+      "title": "本物の地形（鎌倉の谷戸）",
+      "sourceKind": "real",
+      "hazards": [
+        "landslide",
+        "landslide"
+      ],
+      "summary": "丘を細い谷が刻む土地。谷の底に家と道、急な斜面には土砂災害の区域があります。",
+      "datasetVersion": "gsi-2026-10",
+      "contentHash": "2ef72d77ba301cca0f86a15ddf816f35473f21cf9141072569b68882393841aa",
+      "zones": [],
+      "reliefM": 84.7
+    },
+    {
+      "regionId": "real-kyodo",
+      "file": "real-kyodo.json",
+      "title": "本物の地形（京戸川扇状地）",
+      "sourceKind": "real",
+      "summary": "山から出たところに広がる扇状地。上は果樹園、すそに家が集まります。",
+      "datasetVersion": "gsi-2026-10",
+      "contentHash": "bda6a9e44ae2775bd69f4b1494d5dad37ed1b0256a611379b297e107ff839cbf",
+      "zones": [],
+      "reliefM": 178.7
+    },
+    {
+      "regionId": "real-makinohara",
+      "file": "real-makinohara.json",
+      "title": "本物の地形（牧之原台地）",
+      "sourceKind": "real",
+      "hazards": [
+        "landslide"
+      ],
+      "summary": "平らな台地の上と、台地を刻む谷。台地のふちは急ながけです。",
+      "datasetVersion": "gsi-2026-10",
+      "contentHash": "2e357615f545c969e4494000027dce22d03c480809274522348f10f9e9de61b4",
+      "zones": [],
+      "reliefM": 67.5
+    },
+    {
+      "regionId": "real-kofu",
+      "file": "real-kofu.json",
+      "title": "本物の地形（甲府盆地）",
+      "sourceKind": "real",
+      "hazards": [
+        "landslide"
+      ],
+      "summary": "盆地の底の平らな土地と、山すそのゆるい坂。",
+      "datasetVersion": "gsi-2026-10",
+      "contentHash": "7e862f82cfb42cdba218b7c36cbf724a6b4cbf11a398c266e3a464110f9d98b3",
+      "zones": [],
+      "reliefM": 108.9
+    },
+    {
+      "regionId": "real-tama",
+      "file": "real-tama.json",
+      "title": "本物の地形（多摩丘陵）",
+      "sourceKind": "real",
+      "hazards": [
+        "landslide"
+      ],
+      "summary": "丘を造成した住宅地。ゆるい丘と谷が入りまじります。",
+      "datasetVersion": "gsi-2026-10",
+      "contentHash": "5f183bbd4c6301add43c5fd085ffd7e067e288f0b62db666102b129dc8b21095",
+      "zones": [],
+      "reliefM": 38.4
+    }
+  ]
+}
