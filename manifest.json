@@ -1,12 +1,12 @@
 {
   "app": "konotochi-town",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "profile": "public",
-  "builtAt": "2026-10-31T11:35:26.484Z",
+  "builtAt": "2026-11-09T08:28:47.231Z",
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "404.html": "ed20b3004b669e8f7bb85ac9c79a6a9bade18721b39c52c8f678f9a0dc7fe7e0",
-    "assets/main.js": "857eff040998f7c7e95cecc381c273130cb7be77d5fa439be992d437ed305bc9",
+    "assets/main.js": "c13f8db52ed3ce2d1d26b7a75be71e16d8ae3795834fa8d5f3597e5d4e4da879",
     "assets/styles.css": "640ea9955acc9ad808e204c948276576e4c14871dc3eff4e5107f42524dbc299",
     "icon.svg": "9bad03d43634153e81a600f0e66043707d2a167c9c7e6ee3fbf56b84a8cdc3e7",
     "index.html": "e8c0904bbf125c1b5fa510e05cf6646ce8c7e0da733518bdac03fcb99d67c2ba",
